@@ -21,8 +21,12 @@ using namespace std;
 class Robot : public frc::TimedRobot {
   frc::PWMSparkMax m_leftMotor{0};
   frc::PWMSparkMax m_rightMotor{1};
-  frc::Spark m_elevator{2;
+  frc::Spark m_elevator{2};
+  frc::Spark m_pickup {3};
+  frc::PWMSparkMax m_shootera{4};
+  frc::PWMSparkMax m_shooterb{5};
   frc::DifferentialDrive m_robotDrive{m_leftMotor, m_rightMotor};
+  frc::DifferentialDrive m_ballshooter{m_shootera,m_shooterb};
   frc::Joystick m_leftStick{0};
   frc::Joystick m_rightStick{1};
   frc::XboxController m_drivecontroller {0};
@@ -60,12 +64,12 @@ class Robot : public frc::TimedRobot {
     if (m_drivecontroller.GetLeftBumperPressed() && !m_drivecontroller.GetRightBumperPressed()) 
     {
       // TODO: Add elevator up control
-      m_elevator.Set(1);
+       m_elevator.Set(1);
       cout << "moving elevator up" << endl;
     }
     else if (m_drivecontroller.GetRightBumperPressed() && !m_drivecontroller.GetLeftBumperPressed())
     {
-      m_elevator.Set(-1);
+       m_elevator.Set(-1);
 
       // TODO: add elevator down control
       cout << "moving elevator down" << endl;
