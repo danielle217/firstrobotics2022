@@ -61,13 +61,13 @@ class Robot : public frc::TimedRobot {
     }
   }
   void MoveElevator() {
-    if (m_drivecontroller.GetLeftBumperPressed() && !m_drivecontroller.GetRightBumperPressed()) 
+    if (m_drivecontroller.GetLeftTriggerAxis() && !m_drivecontroller.GetRightTriggerAxis()) 
     {
       // TODO: Add elevator up control
        m_elevator.Set(1);
       cout << "moving elevator up" << endl;
     }
-    else if (m_drivecontroller.GetRightBumperPressed() && !m_drivecontroller.GetLeftBumperPressed())
+    else if (m_drivecontroller.GetRightTriggerAxis() && !m_drivecontroller.GetLeftTriggerAxis())
     {
        m_elevator.Set(-1);
 
@@ -80,11 +80,32 @@ class Robot : public frc::TimedRobot {
       // TODO: Stop elevator 
     }
   }
+  void PickupBall() {
+ 
+ if (m_drivecontroller.GetLeftBumperPressed() && !m_drivecontroller.GetRightBumperPressed()) 
+    {
+      m_pickup.Set(1);
+      cout << "picking up" << endl;
+    }
+    else if (m_drivecontroller.GetRightBumperPressed() && !m_drivecontroller.GetLeftBumperPressed())
+    {
+       m_pickup.Set(-1);
+        cout << "dropping down" << endl;
+      // TODO: add pickup control
+    }
+    else {
+      m_pickup.Set(0);
+  }
+  }
+  void ShootBall() {
+
+  }
 
   void TeleopPeriodic() override {
     // Drive with tank style
       SetDriveMode();
       MoveElevator();
+      PickupBall();
     if (!arcadeMode)
     {
      m_robotDrive.TankDrive(m_drivecontroller.GetLeftY(), m_drivecontroller.GetRightY());
